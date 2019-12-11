@@ -1,12 +1,6 @@
 const mongoData = require('./config/mongo');
-const expenseModel = require('./models/expense')(mongoData);
-const testExpense = new expenseModel({
-	reason: 'reason for test'
-});
-testExpense.save((err)=>{
-	if (err) {
-		console.log(err);
-		return;
-	}
-	console.log('saved');
-});
+/* const expenseModel = require('./models/expense')(mongoData);
+const functions = require('./models/expenseFunctions')(expenseModel); */
+const express = require('express');
+const app = express();
+require('./api/routes')(app, mongoData);
