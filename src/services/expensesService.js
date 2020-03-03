@@ -1,11 +1,9 @@
-const expensesModel = require("../models/expense");
+const expenseDao = require("../daos/expensesDao");
 
 const service = {
 	getExpenses: async ()=>{
-		expensesModel.find({}).exec(function(err, data){
-			if( err ){ console.log('Error: ', err); return; }
-			return data;
-		}); 
+		return expenseDao.getExpenses();
 	}
 }
+
 module.exports = service;
