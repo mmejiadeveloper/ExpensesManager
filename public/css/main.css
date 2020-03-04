@@ -1,0 +1,8 @@
+.month {
+    background-color: rgb(238, 123, 123);
+    text-align: center;
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}

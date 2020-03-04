@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "bootstrap": "^4.4.1",
+    "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.8.0",
     "nodemon": "^2.0.1"

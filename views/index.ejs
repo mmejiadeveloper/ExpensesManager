@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="p-3 mb-2 bg-primary text-white">Select a month</div>
+        <div v-if="!month_detail" id="monthpicker" class="container">
+            <div class="row">
+                <div class="col-3">
+                    <div @click='open_month("Janurary")' class="month">
+                        Janurary
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="month">
+                        February
+                    </div>
+                </div>
+                <div class=" col-3">
+                    <div class="month">
+                        March
+                    </div>
+                </div>
+                <div class=" col-3">
+                    <div class="month">
+                        April
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-3">
+                    <div class="month">
+                        May
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="month">
+                        June
+                    </div>
+
+                </div>
+                <div class="col-3">
+                    <div class="month">
+                        July
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="month">
+                        August
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col-3">
+                    <div class="month">
+                        September
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="month">
+                        October
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="month">
+                        Novemeber
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="month">
+                        December
+                    </div>
+                </div>
+            </div>
+            <div class="container text-center pt-3">
+                <h2>Year expenses <span v-html='total_cost_expenses'></span> </h2>
+            </div>
+        </div>
+
+        <div v-if="month_detail" class="container text-center pt-3">
+            <h2><span v-html='selected_month'></span> </h2>
+        </div>
+    </div>
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>
