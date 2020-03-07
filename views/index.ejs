@@ -4,90 +4,170 @@
 <head>
     <title>Title</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width,
+            initial-scale=1,shrink-to-fit=no" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <link href="/css/main.css" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="/scripts/simple-mask-money.js"></script>
+
 </head>
 
 <body>
     <div id="app">
-        <div class="p-3 mb-2 bg-primary text-white">Select a month</div>
-        <div v-if="!month_detail" id="monthpicker" class="container">
+        <div class="p-3 mb-2 bg-primary text-white">
+            <span @click='go_menu' class="monthpicker">Select a month</span>
+            <span @click='create_update' class="px-5 monthpicker">Add
+                    expense</span>
+        </div>
+        <div v-if="!month_detail && !write_mode" id="monthpicker" class="container">
             <div class="row">
                 <div class="col-3">
-                    <div @click='open_month("Janurary")' class="month">
+                    <div @click='open_month(" 01-2020" ," Janurary" )' class="month">
                         Janurary
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="month">
+                    <div @click='open_month(" 02-2020" ," February" )' class="month">
                         February
                     </div>
                 </div>
-                <div class=" col-3">
-                    <div class="month">
+                <div class="col-3">
+                    <div @click='open_month(" 03-2020" ," March" )' class="month">
                         March
                     </div>
                 </div>
-                <div class=" col-3">
-                    <div class="month">
+                <div class="col-3">
+                    <div @click='open_month(" 03-2020" ," April" )' class="month">
                         April
                     </div>
                 </div>
             </div>
             <div class="row pt-2">
                 <div class="col-3">
-                    <div class="month">
+                    <div @click='open_month(" 03-2020" ," May" )' class="month">
                         May
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="month">
+                    <div @click='open_month(" 03-2020" ," June" )' class="month">
                         June
                     </div>
 
                 </div>
                 <div class="col-3">
-                    <div class="month">
+                    <div @click='open_month(" 03-2020" ," July" )' class="month">
                         July
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="month">
+                    <div @click='open_month(" 03-2020" ," August" )' class="month">
                         August
                     </div>
                 </div>
             </div>
             <div class="row pt-2">
                 <div class="col-3">
-                    <div class="month">
+                    <div @click='open_month(" 03-2020" ," September" )' class="month">
                         September
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="month">
+                    <div @click='open_month(" 03-2020" ," October" )' class="month">
                         October
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="month">
+                    <div @click='open_month(" 03-2020" ," Novemeber" )' class="month">
                         Novemeber
                     </div>
                 </div>
                 <div class="col-3">
-                    <div class="month">
+                    <div @click='open_month(" 03-2020" ," December" )' class="month">
                         December
                     </div>
                 </div>
             </div>
             <div class="container text-center pt-3">
-                <h2>Year expenses <span v-html='total_cost_expenses'></span> </h2>
+                <h2>Year expenses <span v-html='total_cost_expenses'></span>
+                </h2>
             </div>
         </div>
 
-        <div v-if="month_detail" class="container text-center pt-3">
-            <h2><span v-html='selected_month'></span> </h2>
+        <div v-if="month_detail && !write_mode" class="container text-center
+                pt-3">
+            <h2><span v-html='selected_month'></span> expenses <span v-html='total_cost_expenses'></span> </h2>
+            <table class="table table-striped table-inverse">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Date</th>
+                        <th>Cost</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-bind:class="[expense.type == 'expense' ? 'expense'
+                            : 'income']" v-for='(expense, index) in expenses'>
+                        <td>{{ to_date(expense.date) }} </td>
+                        <td> <span v-html="expense.type == 'expense' ? '-' :
+                                    '+'"></span> {{to_money(expense.cost)}}</td>
+                        <td>{{expense.type}}</td>
+                        <td>{{expense.reason}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div v-if="write_mode">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="">Cost</label>
+                            <input v-model='row.cost' type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="">Type</label>
+                            <div class="form-group">
+                                <label for=""></label>
+                                <select v-model='row.type' class="form-control" name="" id="">
+                                    <option value="expense" >Expense</option>
+                                    <option value="income" >Income</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="">Date</label>
+                            <input v-model='row.date' type="date" class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="">Description</label>
+                            <div class="form-group">
+                                <label for=""></label>
+                                <textarea v-model='row.reason' class="form-control" name="" id="" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <input :disabled="can_save" @click='save("/expenses")' name="" id="" class="btn btn-primary" type="button" value="Save">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="scripts/main.js"></script>

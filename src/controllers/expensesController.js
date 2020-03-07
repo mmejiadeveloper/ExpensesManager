@@ -9,5 +9,9 @@ controller.getExpensesByDate = async(req, res) => {
     const expenses = await expensesService.getExpensesByDate(req.params.date);
     res.json({ data: expenses });
 };
+controller.createExpense = async(req, res) => {
+    const expenses = await expensesService.createExpense(req.body);
+    res.json({ data: expenses });
+};
 
 module.exports = controller;

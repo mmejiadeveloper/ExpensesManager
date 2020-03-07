@@ -7,6 +7,9 @@ const service = {
     getExpensesByDate: async(date) => {
         return expenseDao.getExpensesByDate(date);
     },
+    createExpense: async(formData) => {
+        return expenseDao.createExpense(formData);
+    },
 }
 
 module.exports = service;

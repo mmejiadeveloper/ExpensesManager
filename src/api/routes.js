@@ -7,5 +7,6 @@ router.get('/', (req, res) => {
 });
 router.get("/expenses", expense.getExpenses);
 router.get("/expenses/:date", expense.getExpensesByDate);
+router.post("/expenses", expense.createExpense);
 
 module.exports = router;

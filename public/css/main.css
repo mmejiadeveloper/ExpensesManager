@@ -6,3 +6,15 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+.monthpicker {
+    cursor: pointer;
+}
+
+.expense {
+    color: red;
+}
+
+.income {
+    color: green;
+}
