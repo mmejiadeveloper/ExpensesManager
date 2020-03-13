@@ -1,4 +1,5 @@
 const expensesModel = require("../models/expense");
+const balanceModel = require("../models/balance");
 
 const dao = {
     getExpenses: async() => {
@@ -26,6 +27,17 @@ const dao = {
             expensesModel.create(formData, function(err, small) {
                 if (err) return handleError(err);
                 resolve({ status: 1 });
+            });
+        });
+    },
+
+    getBalances: async() => {
+        return new Promise((resolve, reject) => {
+            balanceModel.find({}, { reason: 1, _id: 0, type: 1, cost: 1, date: 1 }).exec(function(err, data) {
+                if (err) { reject(err) }
+                console.log(data);
+
+                resolve(data);
             });
         });
     },

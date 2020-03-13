@@ -8,6 +8,8 @@ const app = new Vue({
         total_cost_expenses: 0,
         month_detail: false,
         selected_month: '',
+        saves: 0,
+        show_saves: false,
         write_mode: false,
         row: {
             cost: '0',
@@ -41,9 +43,9 @@ const app = new Vue({
                     },
                 });
                 const content = await rawResponse.json();
-                this.expenses = content.data;
-                this.total_cost_expenses = this.expenses.filter(({ type }) => type === 'expense').reduce((acc, obj) => { return acc + obj.cost }, 0);
-                this.total_cost_expenses = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(app.total_cost_expenses);
+                this.expenses = content.data.expenses;
+                this.total_cost_expenses = content.data.totalCost;
+                this.saves = content.data.saves;
             })();
 
         },

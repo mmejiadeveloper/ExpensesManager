@@ -96,6 +96,8 @@
 
         <div v-if="month_detail && !write_mode" class="container text-center
                 pt-3">
+            <h2 @click='show_saves = !show_saves'><span></span> Show details <span></span> </h2>
+            <h2 v-if='show_saves'><span></span> Saves: {{ saves }} <span></span> </h2>
             <h2><span v-html='selected_month'></span> expenses <span v-html='total_cost_expenses'></span> </h2>
             <table class="table table-striped table-inverse">
                 <thead class="thead-inverse">
